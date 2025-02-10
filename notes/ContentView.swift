@@ -9,9 +9,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    // View Model
+    @ObservedObject private var viewModel = NotesViewModel.shared
     var body: some View {
         NavigationView {
+            
             VStack {
+                if !viewModel.notes.isEmpty {
+                    
+                    List {
+                        ScrollView {
+                            ForEach(viewModel.notes, id:\.id) {note in
+                                Text(note.title)
+                            }
+                        }
+                    }
+                } else {
+                    
+                }
+
                 Text("😔")
                     .font(.system(size: 45))
                 Text("No Notes Found!")
@@ -21,6 +37,7 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     Button {
+                        viewModel.addNote(title: "TestNote", content: "Test Content")
                         
                     } label: {
                         Image(systemName: "plus.circle.fill")
