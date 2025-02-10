@@ -5,6 +5,7 @@
 //  Created by Fawad Khan on 2/9/25.
 //
 
+
 import SwiftUI
 
 struct ContentView: View {
@@ -28,6 +29,7 @@ struct ContentView: View {
                             .frame(width: 50)
                             .symbolRenderingMode(.hierarchical)
                     }
+                    .labelStyle(.iconOnly)
                 }
             }
         }
