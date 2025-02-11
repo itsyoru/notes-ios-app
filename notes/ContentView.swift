@@ -23,7 +23,16 @@ struct NoteComponent: View {
                     .font(.system(.subheadline, design: .rounded))
                     .foregroundStyle(.gray)
             }
+            
+            Spacer()
+            Text(createdAt, format: .dateTime.day().month().year())
         }
+        .padding(15)
+        .background(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+        )
+        .padding(.horizontal, 20)
     }
 }
 
