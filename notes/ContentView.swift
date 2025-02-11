@@ -8,6 +8,26 @@
 
 import SwiftUI
 
+// Note Component
+struct NoteComponent: View {
+    var title: String
+    var content: String
+    var createdAt: Date
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(title).font(.system(.title3, design: .rounded, weight: .bold))
+                
+                Text(content.prefix(10))
+                    .font(.system(.subheadline, design: .rounded))
+                    .foregroundStyle(.gray)
+            }
+        }
+    }
+}
+
+
 struct ContentView: View {
     // View Model
     @ObservedObject private var viewModel = NotesViewModel.shared
@@ -20,10 +40,15 @@ struct ContentView: View {
                     List {
                         ScrollView {
                             ForEach(viewModel.notes, id:\.id) {note in
-                                Text(note.title)
+                                NoteComponent(title: note.title,                content: note.content,
+                                              createdAt: note.createdAt)
                             }
                         }
+                        .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+                        .listRowSeparator(.hidden)
+                        .buttonStyle(.plain)
                     }
+                    .listStyle(.plain)
                 } else {
                     
                 }
@@ -37,7 +62,6 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     Button {
-                        viewModel.addNote(title: "TestNote", content: "Test Content")
                         
                     } label: {
                         Image(systemName: "plus.circle.fill")
@@ -55,4 +79,10 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .onAppear() {
+            //Testing
+            if NotesViewModel.shared.notes.isEmpty {
+                NotesViewModel.shared.addNote(title: "Test Title", content: "Test Content")
+            }
+        }
 }
