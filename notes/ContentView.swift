@@ -28,6 +28,15 @@ struct SheetView: View {
                     }
                     .textFieldStyle(.roundedBorder)
                 }
+                
+                VStack(alignment: .leading) {
+                    Text("Content")
+                        .font(.headline)
+                    TextField(text:$noteContent) {
+                        Text("Type Note Content")
+                    }
+                    .textFieldStyle(.roundedBorder)
+                }
             }
             .padding()
             .navigationTitle("Add a Title")
