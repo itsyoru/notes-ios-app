@@ -8,9 +8,42 @@
 
 import SwiftUI
 
+// Sheet View
+struct SheetView: View {
+    @Binding var showAddSheet: Bool
+    @Binding var noteTitle: String
+    @Binding var noteContent: String
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 30) {
+                
+                VStack(alignment: .leading) {
+                    
+                    Text("Title")
+                        .font(.headline)
+                    
+                    TextField(text:$noteTitle) {
+                        Text("Type a Note Title")
+                    }
+                    .textFieldStyle(.roundedBorder)
+                }
+            }
+            .padding()
+            .navigationTitle("Add a Title")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
 struct ContentView: View {
     // View Model
     @ObservedObject private var viewModel = NotesViewModel.shared
+    
+    @State private var showAddSheet: Bool = false
+    @State private var noteTitle: String = ""
+    @State private var noteContent: String = ""
+    
     var body: some View {
         NavigationView {
             
@@ -56,6 +89,11 @@ struct ContentView: View {
         }
     }
 }
+
+#Preview {
+    SheetView(showAddSheet: .constant(true), noteTitle: .constant("Test"), noteContent: .constant("Test"))
+}
+
 
 #Preview {
     ContentView()
