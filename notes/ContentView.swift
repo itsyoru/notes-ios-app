@@ -8,35 +8,6 @@
 
 import SwiftUI
 
-// Note Component
-struct NoteComponent: View {
-    var title: String
-    var content: String
-    var createdAt: Date
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 10) {
-                Text(title).font(.system(.title3, design: .rounded, weight: .bold))
-                
-                Text(content.prefix(10))
-                    .font(.system(.subheadline, design: .rounded))
-                    .foregroundStyle(.gray)
-            }
-            
-            Spacer()
-            Text(createdAt, format: .dateTime.day().month().year())
-        }
-        .padding(15)
-        .background(
-            RoundedRectangle(cornerRadius: 15)
-                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-        )
-        .padding(.horizontal, 20)
-    }
-}
-
-
 struct ContentView: View {
     // View Model
     @ObservedObject private var viewModel = NotesViewModel.shared
